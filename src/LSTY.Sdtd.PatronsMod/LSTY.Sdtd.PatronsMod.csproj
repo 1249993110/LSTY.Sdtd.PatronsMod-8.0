@@ -1,0 +1,80 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net48</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<PlatformTarget>x64</PlatformTarget>
+		<Authors>IceCoffee</Authors>
+		<Company>LuoShuiTianYi</Company>
+		<Copyright>Copyright (c) 2023 IceCoffee</Copyright>
+		<Description>Patrons Mod APIs based SignalR for 7DaysToDie Dedicated Servers.</Description>
+		<GenerateDocumentationFile>false</GenerateDocumentationFile>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<LangVersion>10.0</LangVersion>
+		<!--取消方法注释警告-->
+		<NoWarn>$(NoWarn);1591</NoWarn>
+		<!--取消字段退出构造方法可空警告-->
+		<NoWarn>$(NoWarn);CS8618</NoWarn>
+		<Version>8.0.0</Version>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Using Remove="System.Net.Http" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\LSTY.Sdtd.Shared\LSTY.Sdtd.Shared.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!--<PackageReference Include="Lib.Harmony" Version="2.2.2" />-->
+		<PackageReference Include="Microsoft.AspNet.SignalR.SelfHost" Version="2.4.3" />
+		<PackageReference Include="Microsoft.Owin.Security" Version="4.2.2" />
+		<PackageReference Include="Microsoft.Owin.SelfHost" Version="4.2.2" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<!--<PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />-->
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="ModInfo.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="restart-linux.sh">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="restart-windows.bat">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+	
+	<ItemGroup>
+		<Reference Include="System.Configuration">
+			<Private>true</Private>
+			<HintPath>$(SystemRoot)\Microsoft.NET\Framework64\v$(MSBuildRuntimeVersion)\System.Configuration.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="Assembly-CSharp">
+			<Private>false</Private>
+			<HintPath>..\7dtd-binaries\Assembly-CSharp.dll</HintPath>
+		</Reference>
+		<Reference Include="Assembly-CSharp-firstpass">
+			<Private>false</Private>
+			<HintPath>..\7dtd-binaries\Assembly-CSharp-firstpass.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.CoreModule">
+			<Private>false</Private>
+			<HintPath>7dtd-binaries\UnityEngine.CoreModule.dll</HintPath>
+		</Reference>
+		<Reference Include="LogLibrary">
+			<Private>false</Private>
+			<HintPath>..\7dtd-binaries\LogLibrary.dll</HintPath>
+		</Reference>
+		<Reference Include="0Harmony">
+			<Private>false</Private>
+			<HintPath>..\7dtd-binaries\0Harmony.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+</Project>

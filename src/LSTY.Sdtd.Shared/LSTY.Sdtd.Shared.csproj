@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net6.0;netstandard2.0;net48</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Authors>IceCoffee</Authors>
+		<Company>LuoShuiTianYi</Company>
+		<Copyright>Copyright (c) 2023 IceCoffee</Copyright>
+		<Description>Patrons Mod APIs based SignalR for 7DaysToDie Dedicated Servers.</Description>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<LangVersion>10.0</LangVersion>
+		<!--取消方法注释警告-->
+		<NoWarn>$(NoWarn);1591</NoWarn>
+		<!--取消字段退出构造方法可空警告-->
+		<NoWarn>$(NoWarn);CS8618</NoWarn>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<PackageProjectUrl>https://github.com/1249993110/LSTY.Sdtd.PatronsMod</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/1249993110/LSTY.Sdtd.PatronsMod</RepositoryUrl>
+		<Version>8.0.0</Version>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Using Remove="System.Net.Http" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\..\LICENSE" Pack="true" PackagePath="" Visible="false" />
+		<None Include="..\..\README.md" Pack="true" PackagePath="" Visible="false" />
+	</ItemGroup>
+
+</Project>
