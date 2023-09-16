@@ -43,7 +43,7 @@
         /// <summary>
         /// 等级
         /// </summary>
-        public float Level { get; set; }
+        public int Level { get; set; }
 
         /// <summary>
         /// 延迟

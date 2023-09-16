@@ -130,7 +130,7 @@ namespace LSTY.Sdtd.PatronsMod
                         break;
                 }
 
-                var items = pageSzie < 0 ? itemBlocks : itemBlocks.Skip((param.PageIndex - 1) * pageSzie).Take(pageSzie);
+                var items = pageSzie < 0 ? itemBlocks : itemBlocks.Skip((param.PageNumber - 1) * pageSzie).Take(pageSzie);
 
                 var result = new ItemBlockPaged()
                 {
@@ -243,7 +243,7 @@ namespace LSTY.Sdtd.PatronsMod
             });
         }
 
-        public async Task<Dictionary<string, string>> GetLocalization(string language = "schinese")
+        public async Task<Dictionary<string, string>> GetLocalization(string language)
         {
             return await Task.Factory.StartNew((state) =>
             {
@@ -260,7 +260,7 @@ namespace LSTY.Sdtd.PatronsMod
             }, language);
         }
 
-        public async Task<string?> GetLocalization(string itemName, string language = "schinese")
+        public async Task<string?> GetLocalization(string itemName, string language)
         {
             return await Task.Run(() =>
             {

@@ -12,7 +12,9 @@ namespace LSTY.Sdtd.PatronsMod.SignalR
             {
                 // 启用 JSONPJSONP 请求是不安全的，但一些较旧的浏览器（和一些 IE 版本）需要 JSONP 才能跨域工作
                 EnableJSONP = false,
+#if DEBUG
                 EnableDetailedErrors = true,
+#endif
                 EnableJavaScriptProxies = false
             });
 
@@ -20,9 +22,7 @@ namespace LSTY.Sdtd.PatronsMod.SignalR
 
             if (string.IsNullOrEmpty(AppSettings.AccessToken) == false)
             {
-                var globalAuthorizer = new ApiKeyAuthorizeAttribute();
-                // 该方法在处理第一个请求之前执行一次
-                GlobalHost.HubPipeline.AddModule(new AuthorizeModule(globalAuthorizer, null));
+                GlobalHost.HubPipeline.AddModule(new AuthorizeModule(new ApiKeyAuthorizeHubConnection(), null));
             }
 
             GlobalHost.Configuration.MaxIncomingWebSocketMessageSize = null;

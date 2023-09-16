@@ -33,7 +33,7 @@
         /// <summary>
         /// 质量颜色
         /// </summary>
-        public string QualityColor { get; set; }
+        public string? QualityColor { get; set; }
 
         /// <summary>
         /// 最大使用次数
@@ -48,6 +48,6 @@
         /// <summary>
         /// 部件
         /// </summary>
-        public InvItem[] Parts { get; set; }
+        public InvItem?[] Parts { get; set; }
     }
 }

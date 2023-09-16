@@ -5,9 +5,9 @@ namespace LSTY.Sdtd.PatronsMod
 {
     internal static class AppSettings
     {
-        public static string AccessToken { get; }
+        public static string AccessToken { get; private set; }
 
-        public static string SignalrUrl { get; }
+        public static string SignalrUrl { get; private set; }
 
         static AppSettings()
         {

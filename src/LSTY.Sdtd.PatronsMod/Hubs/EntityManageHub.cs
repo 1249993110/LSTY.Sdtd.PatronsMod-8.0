@@ -44,7 +44,7 @@ namespace LSTY.Sdtd.PatronsMod
             return await Task.Factory.StartNew((state) => ConsoleHelper.ParseParamIdOrName((string)state)?.ToPlayerBase(), idOrName);
         }
 
-        public async Task<int> GetPlayerCount()
+        public async Task<int> GetOnlinePlayerCount()
         {
             return await Task.FromResult(GameManager.Instance.World.Players.Count);
         }

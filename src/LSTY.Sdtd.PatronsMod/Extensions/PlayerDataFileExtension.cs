@@ -6,7 +6,7 @@ namespace LSTY.Sdtd.PatronsMod.Extensions
     {
         #region Get Inventory
 
-        public static Shared.Models.Inventory GetInventory(this PlayerDataFile pdf)
+        public static Shared.Models.Inventory? GetInventory(this PlayerDataFile pdf)
         {
             try
             {
@@ -24,28 +24,27 @@ namespace LSTY.Sdtd.PatronsMod.Extensions
             }
         }
 
-        private static List<InvItem> ProcessInv(ItemStack[] sourceFields, int entityId)
+        private static List<InvItem?> ProcessInv(ItemStack[] sourceFields, int entityId)
         {
-            var target = new List<InvItem>(sourceFields.Length);
+            var target = new List<InvItem?>(sourceFields.Length);
 
             foreach (var field in sourceFields)
             {
-                InvItem invItem = CreateInvItem(field.itemValue, field.count, entityId);
+                var invItem = CreateInvItem(field.itemValue, field.count, entityId);
                 if (invItem != null && field.itemValue.Modifications != null)
                 {
                     ProcessParts(field.itemValue.Modifications, invItem, entityId);
                 }
-
                 target.Add(invItem);
             }
 
             return target;
         }
 
-        private static InvItem[] ProcessEqu(Equipment sourceEquipment, int entityId)
+        private static InvItem?[] ProcessEqu(Equipment sourceEquipment, int entityId)
         {
             int slotCount = sourceEquipment.GetSlotCount();
-            var equipment = new InvItem[slotCount];
+            var equipment = new InvItem?[slotCount];
             for (int i = 0; i < slotCount; i++)
             {
                 equipment[i] = CreateInvItem(sourceEquipment.GetSlotItem(i), 1, entityId);
@@ -58,11 +57,11 @@ namespace LSTY.Sdtd.PatronsMod.Extensions
         {
             int length = parts.Length;
 
-            InvItem[] itemParts = new InvItem[length];
+            InvItem?[] itemParts = new InvItem[length];
 
             for (int i = 0; i < length; i++)
             {
-                InvItem partItem = CreateInvItem(parts[i], 1, entityId);
+                var partItem = CreateInvItem(parts[i], 1, entityId);
                 if (partItem != null && parts[i].Modifications != null)
                 {
                     ProcessParts(parts[i].Modifications, partItem, entityId);
@@ -74,7 +73,7 @@ namespace LSTY.Sdtd.PatronsMod.Extensions
             item.Parts = itemParts;
         }
 
-        private static InvItem CreateInvItem(ItemValue itemValue, int count, int entityId)
+        private static InvItem? CreateInvItem(ItemValue itemValue, int count, int entityId)
         {
             try
             {
@@ -102,7 +101,7 @@ namespace LSTY.Sdtd.PatronsMod.Extensions
                 //}
 
                 int quality = 0;
-                string qualityColor = null;
+                string? qualityColor = null;
                 if (itemValue.HasQuality)
                 {
                     quality = itemValue.Quality;

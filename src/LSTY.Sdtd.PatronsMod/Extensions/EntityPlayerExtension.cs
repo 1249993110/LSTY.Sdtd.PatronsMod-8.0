@@ -7,7 +7,7 @@
             try
             {
                 var clientInfo = ConnectionManager.Instance.Clients.ForEntityId(player.entityId);
-                var progression = GetProgression(clientInfo.latestPlayerData);
+                var progression = player.Progression;
                 var landProtection = GetLandProtectionActiveAndMultiplier(clientInfo.entityId);
 
                 return new OnlinePlayer()
@@ -37,31 +37,6 @@
             catch (Exception ex)
             {
                 CustomLogger.Warn(ex, "EntityPlayer to OnlinePlayer failed");
-                return null;
-            }
-        }
-
-        private static Progression? GetProgression(PlayerDataFile pdf)
-        {
-            try
-            {
-                if (pdf.progressionData.Length <= 0)
-                {
-                    return null;
-                }
-
-                using var pbr = MemoryPools.poolBinaryReader.AllocSync(false);
-                pbr.SetBaseStream(pdf.progressionData);
-                long posBefore = pbr.BaseStream.Position;
-                pbr.BaseStream.Position = 0;
-                var p = Progression.Read(pbr, null);
-                pbr.BaseStream.Position = posBefore;
-
-                return p;
-            }
-            catch (Exception ex)
-            {
-                CustomLogger.Warn(ex, "Get Progression from PlayerDataFile failed");
                 return null;
             }
         }

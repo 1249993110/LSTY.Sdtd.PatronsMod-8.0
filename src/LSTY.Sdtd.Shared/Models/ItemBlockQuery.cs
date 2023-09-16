@@ -13,7 +13,7 @@
         /// <summary>
         /// 页码
         /// </summary>
-        public int PageIndex { get; set; } = 1;
+        public int PageNumber { get; set; } = 1;
 
         /// <summary>
         /// 每页数量, 值小于 0 时返回所有记录
@@ -23,7 +23,7 @@
         /// <summary>
         /// 语言
         /// </summary>
-        public string Language { get; set; } = "schinese";
+        public string Language { get; set; }
 
         /// <summary>
         /// 搜索关键词

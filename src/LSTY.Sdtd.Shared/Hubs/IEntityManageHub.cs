@@ -9,24 +9,24 @@ namespace LSTY.Sdtd.Shared.Hubs
     {
         #region Player
         /// <summary>
-        /// 获取指定实体Id的玩家
+        /// 获取指定实体Id的在线玩家
         /// </summary>
         /// <param name="entityId">实体Id</param>
         /// <returns></returns>
         Task<OnlinePlayer?> GetOnlinePlayer(int entityId);
 
         /// <summary>
-        /// 通过玩家Id、实体Id或名称获取玩家
+        /// 通过玩家Id、实体Id或名称获取玩家基础信息
         /// </summary>
         /// <param name="idOrName">玩家Id或名称</param>
         /// <returns></returns>
         Task<PlayerBase?> GetPlayerByIdOrName(string idOrName);
 
         /// <summary>
-        /// 获取玩家数量
+        /// 获取在线玩家数量
         /// </summary>
         /// <returns></returns>
-        Task<int> GetPlayerCount();
+        Task<int> GetOnlinePlayerCount();
 
         /// <summary>
         /// 获取指定玩家的库存

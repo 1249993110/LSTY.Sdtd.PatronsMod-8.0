@@ -53,6 +53,14 @@
 			<Private>true</Private>
 			<HintPath>$(SystemRoot)\Microsoft.NET\Framework64\v$(MSBuildRuntimeVersion)\System.Configuration.dll</HintPath>
 		</Reference>
+		<Reference Include="Microsoft.CSharp">
+			<Private>true</Private>
+			<HintPath>$(SystemRoot)\Microsoft.NET\Framework64\v$(MSBuildRuntimeVersion)\Microsoft.CSharp.dll</HintPath>
+		</Reference>
+		<Reference Include="System.Dynamic">
+			<Private>true</Private>
+			<HintPath>$(SystemRoot)\Microsoft.NET\Framework64\v$(MSBuildRuntimeVersion)\System.Dynamic.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 
 	<ItemGroup>
