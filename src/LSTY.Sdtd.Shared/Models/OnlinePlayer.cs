@@ -21,7 +21,7 @@
         public int ExpToNextLevel { get; set; }
 
         /// <summary>
-        /// 健康
+        /// 生命值
         /// </summary>
         public int Health { get; set; }
 
