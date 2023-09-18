@@ -65,7 +65,7 @@ namespace LSTY.Sdtd.PatronsMod
         {
             return await Task.Run(() =>
             {
-                var worldTime = GameManager.Instance.World.worldTime;
+                var worldTime = GameManager.Instance.World.GetWorldTime();
                 var entityList = GameManager.Instance.World.Entities.list;
 
                 int hostiles = 0;
@@ -490,6 +490,11 @@ namespace LSTY.Sdtd.PatronsMod
         public async Task<IEnumerable<string>> RemoveBlacklist(IEnumerable<string> playerId)
         {
             return await ExecuteConsoleCommandBatch(playerId, obj => $"ban remove {obj}");
+        }
+
+        public Task<bool> IsBloodMoon()
+        {
+            return Task.FromResult(GameManager.Instance.World.aiDirector.BloodMoonComponent.BloodMoonActive);
         }
 
         #endregion Blacklist

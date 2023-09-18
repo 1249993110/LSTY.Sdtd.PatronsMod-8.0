@@ -204,5 +204,11 @@ namespace LSTY.Sdtd.Shared.Hubs
         /// <param name="privateMessage">私人消息</param>
         /// <returns></returns>
         Task<IEnumerable<string>> SendPrivateMessage(PrivateMessage privateMessage);
+
+        /// <summary>
+        /// 是否为血月
+        /// </summary>
+        /// <returns></returns>
+        Task<bool> IsBloodMoon();
     }
 }

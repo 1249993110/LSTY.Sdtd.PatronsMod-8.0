@@ -69,6 +69,12 @@ namespace LSTY.Sdtd.Shared.Hubs
         /// </summary>
         /// <param name="entityInfo"></param>
         void OnEntitySpawned(EntityInfo entityInfo);
-        
+
+        /// <summary>
+        /// 天空改变时触发
+        /// </summary>
+        /// <param name="skyChanged"></param>
+        void OnSkyChanged(SkyChanged skyChanged);
+
     }
 }

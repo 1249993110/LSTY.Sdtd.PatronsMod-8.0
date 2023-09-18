@@ -1,5 +1,4 @@
 ﻿using LSTY.Sdtd.PatronsMod.Extensions;
-using LSTY.Sdtd.Shared.Hubs;
 using Microsoft.AspNet.SignalR;
 
 namespace LSTY.Sdtd.PatronsMod.Hubs
@@ -229,6 +228,14 @@ namespace LSTY.Sdtd.PatronsMod.Hubs
             {
                 _hub.OnSavePlayerData(((ClientInfo)state).ToPlayerBase());
             }, clientInfo);
+        }
+
+        public static void SkyChanged(SkyChanged skyChanged)
+        {
+            Task.Factory.StartNew((state) =>
+            {
+                _hub.OnSkyChanged((SkyChanged)state);
+            }, skyChanged);
         }
     }
 }
