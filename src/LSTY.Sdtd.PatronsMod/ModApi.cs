@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using IceCoffee.Common.Timers;
 using LSTY.Sdtd.PatronsMod.Hubs;
 using LSTY.Sdtd.PatronsMod.SignalR;
 using Microsoft.Owin.Hosting;
@@ -81,6 +82,7 @@ namespace LSTY.Sdtd.PatronsMod
                 ModEvents.SavePlayerData.RegisterHandler(ModEventHook.SavePlayerData);
                 ModEvents.ChatMessage.RegisterHandler(ModEventHook.ChatMessage);
                 ModEvents.PlayerSpawning.RegisterHandler(ModEventHook.PlayerSpawning);
+                GlobalTimer.RegisterSubTimer(new SubTimer(SkyChangeTrigger.Callback, 1) { IsEnabled = true });
 
                 CustomLogger.Info("Successfully registered mod event handlers.");
             }
@@ -90,6 +92,5 @@ namespace LSTY.Sdtd.PatronsMod
                 throw;
             }
         }
-
     }
 }

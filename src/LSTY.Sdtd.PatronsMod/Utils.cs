@@ -1,7 +1,15 @@
-﻿namespace LSTY.Sdtd.PatronsMod
+﻿using Platform.Local;
+
+namespace LSTY.Sdtd.PatronsMod
 {
-    public static class Untils
+    public static class Utils
     {
+        public readonly static ClientInfo CmdExecuteDelegate = new ClientInfo() 
+        { 
+            playerName = ModApi.ModIdentity,
+            PlatformId = new UserIdentifierLocal(ModApi.ModIdentity) 
+        };
+
         public static int DaysRemaining(int daysUntilHorde)
         {
             int bloodmoonFrequency = GamePrefs.GetInt(EnumGamePrefs.BloodMoonFrequency);

@@ -322,7 +322,7 @@ namespace LSTY.Sdtd.PatronsMod
             return await Task.Factory.StartNew((state) =>
             {
                 var executeResult = new List<string>();
-                var executeDelegate = ClientInfoExtension.GetCmdExecuteDelegate();
+                var executeDelegate = Utils.CmdExecuteDelegate;
                 foreach (TObject item in (IEnumerable<TObject>)state)
                 {
                     string command = getCommand(item);

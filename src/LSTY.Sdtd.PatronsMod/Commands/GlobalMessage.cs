@@ -34,7 +34,7 @@ namespace LSTY.Sdtd.PatronsMod.Commands
             string message = args[0];
             string senderName = (args.Count < 2 || string.IsNullOrEmpty(args[1])) ? Shared.Constants.Common.DefaultServerName : args[1];
 
-            GameManager.Instance.ChatMessageServer(ClientInfoExtension.GetCmdExecuteDelegate(), EChatType.Global, -1, message, senderName, false, null);
+            GameManager.Instance.ChatMessageServer(Utils.CmdExecuteDelegate, EChatType.Global, -1, message, senderName, false, null);
         }
     }
 }

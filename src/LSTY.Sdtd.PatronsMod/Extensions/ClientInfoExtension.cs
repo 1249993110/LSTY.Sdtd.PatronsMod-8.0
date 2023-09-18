@@ -1,14 +1,7 @@
-﻿using Platform.Local;
-
-namespace LSTY.Sdtd.PatronsMod.Extensions
+﻿namespace LSTY.Sdtd.PatronsMod.Extensions
 {
     internal static class ClientInfoExtension
     {
-        public static ClientInfo GetCmdExecuteDelegate()
-        {
-            return new ClientInfo() { PlatformId = new UserIdentifierLocal(ModApi.ModIdentity) };
-        }
-
         public static PlayerBase ToPlayerBase(this ClientInfo clientInfo)
         {
             return new PlayerBase()

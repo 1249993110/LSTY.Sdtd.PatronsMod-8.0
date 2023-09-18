@@ -59,7 +59,7 @@ namespace LSTY.Sdtd.PatronsMod.Commands
             }
             else
             {
-                SdtdConsole.Instance.ExecuteSync("shutdown", ClientInfoExtension.GetCmdExecuteDelegate());
+                SdtdConsole.Instance.ExecuteSync("shutdown", Utils.CmdExecuteDelegate);
             }
         }
 

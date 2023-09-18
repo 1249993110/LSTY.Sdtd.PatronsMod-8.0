@@ -1,19 +1,24 @@
-﻿using HarmonyLib;
+﻿using IceCoffee.Common.Timers;
 using LSTY.Sdtd.PatronsMod.Hubs;
 
-namespace LSTY.Sdtd.PatronsMod.HarmonyPatchers
+namespace LSTY.Sdtd.PatronsMod
 {
-    [HarmonyPatch(typeof(WorldEnvironment))]
-    public static class WorldEnvironmentPatcher
+    public static class SkyChangeTrigger
     {
         private static bool _firstTime = true;
         private static bool _isDark;
 
-        [HarmonyPostfix]
-        [HarmonyPatch(nameof(WorldEnvironment.WorldTimeChanged))]
-        public static void OnAfterWorldTimeChanged()
+        public static void Callback()
         {
-            bool isDark = GameManager.Instance.World.IsDark();
+            var word = GameManager.Instance.World;
+
+            if (word == null)
+            {
+                return;
+            }
+
+            bool isDark = word.IsDark();
+
             if (_firstTime)
             {
                 _isDark = isDark;
@@ -29,12 +34,12 @@ namespace LSTY.Sdtd.PatronsMod.HarmonyPatchers
             {
                 _isDark = isDark;
 
-                var word = GameManager.Instance.World;
                 ModEventHook.SkyChanged(new SkyChanged()
                 {
-                    BloodMoonDaysRemaining = Untils.DaysRemaining(GameUtils.WorldTimeToDays(word.GetWorldTime())),
+                    BloodMoonDaysRemaining = Utils.DaysRemaining(GameUtils.WorldTimeToDays(word.GetWorldTime())),
                     DawnHour = word.DawnHour,
                     DuskHour = word.DuskHour,
+                    CurrentHour = GameUtils.WorldTimeToHours(word.GetWorldTime()),
                     SkyChangeEventType = _isDark ? SkyChangeEventType.Dusk : SkyChangeEventType.Dawn
                 });
             }

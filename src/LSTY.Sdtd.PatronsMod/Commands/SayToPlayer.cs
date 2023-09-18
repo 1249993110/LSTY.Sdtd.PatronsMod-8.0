@@ -28,7 +28,7 @@
 
             string senderId;
 
-            if (sender == null)
+            if (sender == null || sender == Utils.CmdExecuteDelegate)
             {
                 senderId = Shared.Constants.Common.NonPlayer;
             }

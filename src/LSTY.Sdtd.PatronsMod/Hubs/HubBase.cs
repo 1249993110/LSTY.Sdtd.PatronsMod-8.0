@@ -29,7 +29,7 @@ namespace LSTY.Sdtd.PatronsMod.Hubs
                     IEnumerable<string> executeResult = Enumerable.Empty<string>();
                     ModApi.MainThreadSyncContext.Send((innerState) =>
                     {
-                        executeResult = SdtdConsole.Instance.ExecuteSync((string)innerState, ClientInfoExtension.GetCmdExecuteDelegate());
+                        executeResult = SdtdConsole.Instance.ExecuteSync((string)innerState, Utils.CmdExecuteDelegate);
                     }, state);
 
                     return executeResult;
@@ -39,7 +39,7 @@ namespace LSTY.Sdtd.PatronsMod.Hubs
             {
                 return await Task.Factory.StartNew((state) =>
                 {
-                    return SdtdConsole.Instance.ExecuteSync((string)state, ClientInfoExtension.GetCmdExecuteDelegate());
+                    return SdtdConsole.Instance.ExecuteSync((string)state, Utils.CmdExecuteDelegate);
                 }, command);
             }
         }
