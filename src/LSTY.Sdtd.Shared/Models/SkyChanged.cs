@@ -15,11 +15,6 @@
         public int DuskHour { get; set; }
 
         /// <summary>
-        /// 当前时刻
-        /// </summary>
-        public int CurrentHour { get; set; }
-
-        /// <summary>
         /// 血月剩余天数
         /// </summary>
         public int BloodMoonDaysRemaining { get; set; }

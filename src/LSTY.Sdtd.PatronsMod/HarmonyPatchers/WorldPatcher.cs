@@ -4,11 +4,11 @@ using LSTY.Sdtd.PatronsMod.Hubs;
 
 namespace LSTY.Sdtd.PatronsMod.HarmonyPatchers
 {
-    [HarmonyPatch]
+    [HarmonyPatch(typeof(World))]
     public static class WorldPatcher
     {
         [HarmonyPostfix]
-        [HarmonyPatch(typeof(World), nameof(World.SpawnEntityInWorld))]
+        [HarmonyPatch(nameof(World.SpawnEntityInWorld))]
         public static void OnAfterSpawnEntityInWorld(Entity _entity)
         {
             if (_entity is EntityAlive entityAlive)

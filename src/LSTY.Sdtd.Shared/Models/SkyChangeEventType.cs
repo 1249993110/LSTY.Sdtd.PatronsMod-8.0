@@ -11,15 +11,5 @@
         /// 黄昏
         /// </summary>
         Dusk,
-
-        /// <summary>
-        /// 血月开始
-        /// </summary>
-        BloodMoonStart,
-
-        /// <summary>
-        /// 血月结束
-        /// </summary>
-        BloodMoonEnd,
     }
 }

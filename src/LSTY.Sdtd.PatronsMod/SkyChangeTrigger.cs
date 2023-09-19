@@ -1,11 +1,10 @@
-﻿using IceCoffee.Common.Timers;
-using LSTY.Sdtd.PatronsMod.Hubs;
+﻿using LSTY.Sdtd.PatronsMod.Hubs;
 
 namespace LSTY.Sdtd.PatronsMod
 {
     public static class SkyChangeTrigger
     {
-        private static bool _firstTime = true;
+        private static int _lastDays;
         private static bool _isDark;
 
         public static void Callback()
@@ -17,12 +16,14 @@ namespace LSTY.Sdtd.PatronsMod
                 return;
             }
 
+            int days = GameUtils.WorldTimeToDays(word.GetWorldTime());
             bool isDark = word.IsDark();
 
-            if (_firstTime)
+            // 首次 或 跨天
+            if(_lastDays == 0 || _lastDays != days)
             {
                 _isDark = isDark;
-                _firstTime = false;
+                _lastDays = days;
                 return;
             }
 
@@ -36,10 +37,9 @@ namespace LSTY.Sdtd.PatronsMod
 
                 ModEventHook.SkyChanged(new SkyChanged()
                 {
-                    BloodMoonDaysRemaining = Utils.DaysRemaining(GameUtils.WorldTimeToDays(word.GetWorldTime())),
+                    BloodMoonDaysRemaining = Utils.DaysRemaining(days),
                     DawnHour = word.DawnHour,
                     DuskHour = word.DuskHour,
-                    CurrentHour = GameUtils.WorldTimeToHours(word.GetWorldTime()),
                     SkyChangeEventType = _isDark ? SkyChangeEventType.Dusk : SkyChangeEventType.Dawn
                 });
             }
