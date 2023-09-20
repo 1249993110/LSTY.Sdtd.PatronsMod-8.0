@@ -8,7 +8,7 @@ namespace LSTY.Sdtd.PatronsMod
 {
     public class ModApi : IModApi
     {
-        public const string ModIdentity = "LSTY.Sdtd.PatronsMod";
+        public readonly static string ModIdentity = typeof(ModApi).Namespace;
 
         private static Harmony _harmony;
         private static Mod _modInstance;

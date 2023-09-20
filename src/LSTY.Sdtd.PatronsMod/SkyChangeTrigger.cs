@@ -9,15 +9,15 @@ namespace LSTY.Sdtd.PatronsMod
 
         public static void Callback()
         {
-            var word = GameManager.Instance.World;
+            var world = GameManager.Instance.World;
 
-            if (word == null)
+            if (world == null)
             {
                 return;
             }
 
-            int days = GameUtils.WorldTimeToDays(word.GetWorldTime());
-            bool isDark = word.IsDark();
+            int days = GameUtils.WorldTimeToDays(world.GetWorldTime());
+            bool isDark = world.IsDark();
 
             // 首次 或 跨天
             if(_lastDays == 0 || _lastDays != days)
@@ -35,13 +35,34 @@ namespace LSTY.Sdtd.PatronsMod
             {
                 _isDark = isDark;
 
-                ModEventHook.SkyChanged(new SkyChanged()
+                int hours = GameUtils.WorldTimeToHours(world.GetWorldTime());
+
+                if (_isDark)
                 {
-                    BloodMoonDaysRemaining = Utils.DaysRemaining(days),
-                    DawnHour = word.DawnHour,
-                    DuskHour = word.DuskHour,
-                    SkyChangeEventType = _isDark ? SkyChangeEventType.Dusk : SkyChangeEventType.Dawn
-                });
+                    if(hours == world.DuskHour)
+                    {
+                        ModEventHook.SkyChanged(new SkyChanged()
+                        {
+                            BloodMoonDaysRemaining = Utils.DaysRemaining(days),
+                            DawnHour = world.DawnHour,
+                            DuskHour = world.DuskHour,
+                            SkyChangeEventType = SkyChangeEventType.Dusk
+                        });
+                    }
+                }
+                else
+                {
+                    if(hours == world.DawnHour)
+                    {
+                        ModEventHook.SkyChanged(new SkyChanged()
+                        {
+                            BloodMoonDaysRemaining = Utils.DaysRemaining(days),
+                            DawnHour = world.DawnHour,
+                            DuskHour = world.DuskHour,
+                            SkyChangeEventType = SkyChangeEventType.Dawn
+                        });
+                    }
+                }
             }
         }
     }
