@@ -23,7 +23,7 @@
         /// <summary>
         /// 语言
         /// </summary>
-        public string Language { get; set; }
+        public Language Language { get; set; }
 
         /// <summary>
         /// 搜索关键词

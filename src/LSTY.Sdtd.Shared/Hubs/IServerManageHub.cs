@@ -167,7 +167,7 @@ namespace LSTY.Sdtd.Shared.Hubs
         /// </summary>
         /// <param name="language">语言</param>
         /// <returns></returns>
-        Task<Dictionary<string, string>> GetLocalization(string language);
+        Task<Dictionary<string, string>> GetLocalization(Language language);
 
         /// <summary>
         /// 获取指定项目的本地化字符串
@@ -175,7 +175,7 @@ namespace LSTY.Sdtd.Shared.Hubs
         /// <param name="itemName">项目名称</param>
         /// <param name="language">语言</param>
         /// <returns></returns>
-        Task<string?> GetLocalization(string itemName, string language);
+        Task<string?> GetLocalization(string itemName, Language language);
 
         /// <summary>
         /// 给予玩家项目

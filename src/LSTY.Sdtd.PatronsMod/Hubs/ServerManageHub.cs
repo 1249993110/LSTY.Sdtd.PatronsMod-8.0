@@ -111,19 +111,19 @@ namespace LSTY.Sdtd.PatronsMod
                 var param = (ItemBlockQuery)state;
                 int pageSzie = param.PageSzie;
                 List<ItemBlock> itemBlocks;
-
+                string language = param.Language.ToString().ToLower();
                 switch (param.ItemBlockKind)
                 {
                     case ItemBlockKind.All:
-                        itemBlocks = ItemsHelper.GetAllItemsAndBlocks(param.Language, param.Keyword, param.ShowUserHidden);
+                        itemBlocks = ItemsHelper.GetAllItemsAndBlocks(language, param.Keyword, param.ShowUserHidden);
                         break;
 
                     case ItemBlockKind.Item:
-                        itemBlocks = ItemsHelper.GetAllItems(param.Language, param.Keyword, param.ShowUserHidden);
+                        itemBlocks = ItemsHelper.GetAllItems(language, param.Keyword, param.ShowUserHidden);
                         break;
 
                     case ItemBlockKind.Block:
-                        itemBlocks = ItemsHelper.GetAllBlocks(param.Language, param.Keyword, param.ShowUserHidden);
+                        itemBlocks = ItemsHelper.GetAllBlocks(language, param.Keyword, param.ShowUserHidden);
                         break;
                     default:
                         itemBlocks = new List<ItemBlock>();
@@ -243,11 +243,11 @@ namespace LSTY.Sdtd.PatronsMod
             });
         }
 
-        public async Task<Dictionary<string, string>> GetLocalization(string language)
+        public async Task<Dictionary<string, string>> GetLocalization(Language language)
         {
             return await Task.Factory.StartNew((state) =>
             {
-                string language = (string)state;
+                string language = ((Language)state).ToString().ToLower();
                 var dict = Localization.dictionary;
                 int languageIndex = Array.LastIndexOf(dict["KEY"], language);
 
@@ -260,21 +260,22 @@ namespace LSTY.Sdtd.PatronsMod
             }, language);
         }
 
-        public async Task<string?> GetLocalization(string itemName, string language)
+        public async Task<string?> GetLocalization(string itemName, Language language)
         {
             return await Task.Run(() =>
             {
+                string _language = language.ToString().ToLower();
                 if (string.IsNullOrEmpty(itemName))
                 {
                     throw new ArgumentNullException(nameof(itemName));
                 }
 
                 var dict = Localization.dictionary;
-                int languageIndex = Array.LastIndexOf(dict["KEY"], language);
+                int languageIndex = Array.LastIndexOf(dict["KEY"], _language);
 
                 if (languageIndex < 0)
                 {
-                    throw new Exception($"The specified language: {language} does not exist");
+                    throw new Exception($"The specified language: {_language} does not exist");
                 }
 
                 if (dict.ContainsKey(itemName) == false)
