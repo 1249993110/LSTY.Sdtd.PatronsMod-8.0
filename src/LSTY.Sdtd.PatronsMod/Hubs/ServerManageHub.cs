@@ -109,7 +109,7 @@ namespace LSTY.Sdtd.PatronsMod
             return await Task.Factory.StartNew((state) =>
             {
                 var param = (ItemBlockQuery)state;
-                int pageSzie = param.PageSzie;
+                int pageSize = param.PageSize;
                 List<ItemBlock> itemBlocks;
                 string language = param.Language.ToString().ToLower();
                 switch (param.ItemBlockKind)
@@ -130,7 +130,7 @@ namespace LSTY.Sdtd.PatronsMod
                         break;
                 }
 
-                var items = pageSzie < 0 ? itemBlocks : itemBlocks.Skip((param.PageNumber - 1) * pageSzie).Take(pageSzie);
+                var items = pageSize < 0 ? itemBlocks : itemBlocks.Skip((param.PageNumber - 1) * pageSize).Take(pageSize);
 
                 var result = new ItemBlockPaged()
                 {

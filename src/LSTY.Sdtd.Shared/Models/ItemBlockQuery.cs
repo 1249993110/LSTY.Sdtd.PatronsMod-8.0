@@ -18,7 +18,7 @@
         /// <summary>
         /// 每页数量, 值小于 0 时返回所有记录
         /// </summary>
-        public int PageSzie { get; set; } = 10;
+        public int PageSize { get; set; } = 10;
 
         /// <summary>
         /// 语言

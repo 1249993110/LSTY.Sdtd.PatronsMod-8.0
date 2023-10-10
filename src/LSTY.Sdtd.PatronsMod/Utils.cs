@@ -6,8 +6,7 @@ namespace LSTY.Sdtd.PatronsMod
     {
         public readonly static ClientInfo CmdExecuteDelegate = new ClientInfo() 
         { 
-            playerName = ModApi.ModIdentity,
-            PlatformId = new UserIdentifierLocal(ModApi.ModIdentity) 
+            PlatformId = new UserIdentifierLocal(ModApi.ModIdentity),
         };
 
         public static int DaysRemaining(int daysUntilHorde)
