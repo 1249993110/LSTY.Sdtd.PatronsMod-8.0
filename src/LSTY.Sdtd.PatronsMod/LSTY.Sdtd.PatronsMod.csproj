@@ -38,6 +38,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Update="appsettings.json">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="ModInfo.xml">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
@@ -50,10 +53,6 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<Reference Include="System.Configuration">
-			<Private>true</Private>
-			<HintPath>$(SystemRoot)\Microsoft.NET\Framework64\v$(MSBuildRuntimeVersion)\System.Configuration.dll</HintPath>
-		</Reference>
 		<Reference Include="Microsoft.CSharp">
 			<Private>true</Private>
 			<HintPath>$(SystemRoot)\Microsoft.NET\Framework64\v$(MSBuildRuntimeVersion)\Microsoft.CSharp.dll</HintPath>

@@ -3,12 +3,16 @@ using IceCoffee.Common.Timers;
 using LSTY.Sdtd.PatronsMod.Hubs;
 using LSTY.Sdtd.PatronsMod.SignalR;
 using Microsoft.Owin.Hosting;
+using System.Text;
 
 namespace LSTY.Sdtd.PatronsMod
 {
     public class ModApi : IModApi
     {
         public readonly static string ModIdentity = typeof(ModApi).Namespace;
+
+        private static AppSettings _appSettings;
+        public static AppSettings AppSettings => _appSettings;
 
         private static Harmony _harmony;
         private static Mod _modInstance;
@@ -17,13 +21,15 @@ namespace LSTY.Sdtd.PatronsMod
         public static SynchronizationContext MainThreadSyncContext { get; private set; }
 
         public static string ModDirectory => _modInstance.Path;
+ 
         public void InitMod(Mod modInstance)
         {
             try
             {
                 _modInstance = modInstance;
-
                 MainThreadSyncContext = SynchronizationContext.Current;
+
+                LoadAppSettings();
 
                 StartupSignalR();
 
@@ -34,6 +40,22 @@ namespace LSTY.Sdtd.PatronsMod
             catch (Exception ex)
             {
                 CustomLogger.Error(ex, "Initialize mod: " + ModIdentity + " failed.");
+            }
+        }
+
+        private static void LoadAppSettings()
+        {
+            string path = Path.Combine(ModDirectory, "appsettings.json");
+            string json = File.ReadAllText(path, Encoding.UTF8);
+            
+            var appSettings = Newtonsoft.Json.JsonConvert.DeserializeObject<AppSettings>(json);
+            if (appSettings == null)
+            {
+                CustomLogger.Error("Load appsettings failed.");
+            }
+            else
+            {
+                _appSettings = appSettings;
             }
         }
 

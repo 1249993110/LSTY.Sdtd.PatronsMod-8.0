@@ -8,13 +8,13 @@ namespace LSTY.Sdtd.PatronsMod.SignalR
         public bool AuthorizeHubConnection(HubDescriptor hubDescriptor, IRequest request)
         {
             var token = request.Headers.Get("access-token");
-            if (token == AppSettings.AccessToken)
+            if (token == ModApi.AppSettings.AccessToken)
             {
                 return true;
             }
 
             token = request.QueryString.Get("access-token");
-            if (token == AppSettings.AccessToken)
+            if (token == ModApi.AppSettings.AccessToken)
             {
                 return true;
             }

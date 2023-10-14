@@ -5,8 +5,13 @@ namespace LSTY.Sdtd.PatronsMod.Hubs
 {
     public abstract class HubBase : Hub
     {
-        protected static string FormatCommandArgs(string args)
+        protected static string FormatCommandArgs(string? args)
         {
+            if(args == null)
+            {
+                return string.Empty;
+            }
+
             if (args.Contains('\"'))
             {
                 throw new Exception("参数不应该包含字符: '\"'");

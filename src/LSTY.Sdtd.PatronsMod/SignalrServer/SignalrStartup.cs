@@ -20,7 +20,7 @@ namespace LSTY.Sdtd.PatronsMod.SignalR
 
             GlobalHost.HubPipeline.AddModule(new GlobalExceptionModule());
 
-            if (string.IsNullOrEmpty(AppSettings.AccessToken) == false)
+            if (string.IsNullOrEmpty(ModApi.AppSettings.AccessToken) == false)
             {
                 GlobalHost.HubPipeline.AddModule(new AuthorizeModule(new ApiKeyAuthorizeHubConnection(), null));
             }
