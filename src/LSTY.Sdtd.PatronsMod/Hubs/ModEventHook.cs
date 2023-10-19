@@ -1,5 +1,10 @@
-﻿using LSTY.Sdtd.PatronsMod.Extensions;
+﻿using Epic.OnlineServices;
+using LSTY.Sdtd.PatronsMod.Extensions;
 using Microsoft.AspNet.SignalR;
+using Platform.EOS;
+using Platform.Steam;
+using System.Security.Cryptography;
+using UnityEngine;
 
 namespace LSTY.Sdtd.PatronsMod.Hubs
 {

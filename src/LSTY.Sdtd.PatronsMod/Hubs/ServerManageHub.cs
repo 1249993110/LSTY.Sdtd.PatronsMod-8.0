@@ -289,7 +289,7 @@ namespace LSTY.Sdtd.PatronsMod
 
         public async Task<IEnumerable<string>> GiveItem(GiveItem giveItemEntry)
         {
-            return await ExecuteConsoleCommand($"ty-give {giveItemEntry.ItemName} {giveItemEntry.Count ?? 1} {giveItemEntry.Quality ?? 1} {giveItemEntry.Durability ?? 100}");
+            return await ExecuteConsoleCommand($"ty-gi {FormatCommandArgs(giveItemEntry.TargetPlayerIdOrName)} {giveItemEntry.ItemName} {giveItemEntry.Count ?? 1} {giveItemEntry.Quality ?? 1} {giveItemEntry.Durability ?? 100}");
         }
 
         public async Task<IEnumerable<string>> RestartServer(bool force = false)

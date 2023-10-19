@@ -32,7 +32,7 @@ namespace LSTY.Sdtd.PatronsMod.Commands
 
         protected override string[] getCommands()
         {
-            return new string[] { "ty-GiveItem", "ty-gi" };
+            return new string[] { "ty-GiveItem", "ty-gi", "ty-give" };
         }
 
         public override void Execute(List<string> args, CommandSenderInfo senderInfo)

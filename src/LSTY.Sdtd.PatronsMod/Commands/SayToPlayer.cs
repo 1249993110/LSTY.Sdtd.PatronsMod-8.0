@@ -1,4 +1,7 @@
-﻿namespace LSTY.Sdtd.PatronsMod.Commands
+﻿using Epic.OnlineServices;
+using Platform.EOS;
+
+namespace LSTY.Sdtd.PatronsMod.Commands
 {
     public class SayToPlayer : ConsoleCmdBase
     {
@@ -18,7 +21,7 @@
         {
             return new[] { "ty-SayToPlayer", "ty-pm" };
         }
-
+  
         private void SendMessage(ClientInfo receiver, ClientInfo? sender, string message, string senderName)
         {
             if (string.IsNullOrEmpty(message))
