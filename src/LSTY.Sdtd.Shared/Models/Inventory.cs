@@ -8,16 +8,16 @@
         /// <summary>
         /// 背包
         /// </summary>
-        public IEnumerable<InvItem?> Bag { get; set; }
+        public IEnumerable<InvItem> Bag { get; set; }
 
         /// <summary>
         /// 腰带
         /// </summary>
-        public IEnumerable<InvItem?> Belt { get; set; }
+        public IEnumerable<InvItem> Belt { get; set; }
 
         /// <summary>
         /// 装备
         /// </summary>
-        public IEnumerable<InvItem?> Equipment { get; set; }
+        public IEnumerable<InvItem> Equipment { get; set; }
     }
 }

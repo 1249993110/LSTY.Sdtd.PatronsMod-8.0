@@ -1,7 +1,4 @@
-﻿using Epic.OnlineServices;
-using Platform.EOS;
-
-namespace LSTY.Sdtd.PatronsMod.Commands
+﻿namespace LSTY.Sdtd.PatronsMod.Commands
 {
     public class SayToPlayer : ConsoleCmdBase
     {

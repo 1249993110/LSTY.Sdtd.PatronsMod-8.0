@@ -65,8 +65,8 @@ namespace LSTY.Sdtd.PatronsMod.Commands
 
         private void Restart()
         {
-            string scriptName = null;
-            string serverPath = null;
+            string? scriptName = null;
+            string? serverPath = null;
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {

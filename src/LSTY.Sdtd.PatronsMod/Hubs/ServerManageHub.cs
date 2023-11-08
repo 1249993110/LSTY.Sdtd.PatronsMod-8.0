@@ -463,7 +463,7 @@ namespace LSTY.Sdtd.PatronsMod
         {
             return await ExecuteConsoleCommandBatch(blacklist, obj =>
             {
-                return $"ban add {obj.PlayerId} {(int)(DateTime.Now - obj.BannedUntil).TotalMinutes} minutes {FormatCommandArgs(obj.Reason)} {FormatCommandArgs(obj.DisplayName)}";
+                return $"ban add {obj.PlayerId} {(int)(obj.BannedUntil - DateTime.Now).TotalMinutes} minutes {FormatCommandArgs(obj.Reason)} {FormatCommandArgs(obj.DisplayName)}";
             });
         }
 

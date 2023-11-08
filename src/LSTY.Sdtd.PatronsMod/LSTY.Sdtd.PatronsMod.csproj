@@ -33,7 +33,7 @@
 		<PackageReference Include="Microsoft.Owin.Security" Version="4.2.2" />
 		<PackageReference Include="Microsoft.Owin.SelfHost" Version="4.2.2" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="IceCoffee.Common" Version="1.0.4.7" />
+		<PackageReference Include="IceCoffee.Common" Version="1.0.4.8" />
 		<!--<PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />-->
 	</ItemGroup>
 
@@ -83,6 +83,10 @@
 		<Reference Include="0Harmony">
 			<Private>false</Private>
 			<HintPath>..\7dtd-binaries\0Harmony.dll</HintPath>
+		</Reference>
+		<Reference Include="Noemax.GZip">
+			<Private>false</Private>
+			<HintPath>..\7dtd-binaries\Noemax.GZip.dll</HintPath>
 		</Reference>
 	</ItemGroup>
 </Project>

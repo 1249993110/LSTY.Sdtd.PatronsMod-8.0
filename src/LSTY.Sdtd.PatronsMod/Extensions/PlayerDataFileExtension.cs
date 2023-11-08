@@ -24,9 +24,9 @@ namespace LSTY.Sdtd.PatronsMod.Extensions
             }
         }
 
-        private static List<InvItem?> ProcessInv(ItemStack[] sourceFields, int entityId)
+        private static IEnumerable<InvItem> ProcessInv(ItemStack[] sourceFields, int entityId)
         {
-            var target = new List<InvItem?>(sourceFields.Length);
+            var target = new List<InvItem>(sourceFields.Length);
 
             foreach (var field in sourceFields)
             {
@@ -34,23 +34,34 @@ namespace LSTY.Sdtd.PatronsMod.Extensions
                 if (invItem != null && field.itemValue.Modifications != null)
                 {
                     ProcessParts(field.itemValue.Modifications, invItem, entityId);
+                    target.Add(invItem);
                 }
-                target.Add(invItem);
             }
 
             return target;
         }
 
-        private static InvItem?[] ProcessEqu(Equipment sourceEquipment, int entityId)
+        private static IEnumerable<InvItem> ProcessEqu(Equipment sourceEquipment, int entityId)
         {
+            //int slotCount = sourceEquipment.GetSlotCount();
+            //var equipment = new InvItem?[slotCount];
+            //for (int i = 0; i < slotCount; i++)
+            //{
+            //    equipment[i] = CreateInvItem(sourceEquipment.GetSlotItem(i), 1, entityId);
+            //}
+
             int slotCount = sourceEquipment.GetSlotCount();
-            var equipment = new InvItem?[slotCount];
+            var target = new List<InvItem>(slotCount);
             for (int i = 0; i < slotCount; i++)
             {
-                equipment[i] = CreateInvItem(sourceEquipment.GetSlotItem(i), 1, entityId);
+                var invItem = CreateInvItem(sourceEquipment.GetSlotItem(i), 1, entityId);
+                if (invItem != null)
+                {
+                    target.Add(invItem);
+                }
             }
 
-            return equipment;
+            return target;
         }
 
         private static void ProcessParts(ItemValue[] parts, InvItem item, int entityId)
