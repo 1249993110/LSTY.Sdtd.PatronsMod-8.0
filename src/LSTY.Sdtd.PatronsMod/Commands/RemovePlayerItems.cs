@@ -55,7 +55,7 @@ namespace LSTY.Sdtd.PatronsMod.Commands
                             cInfo.SendPackage(NetPackageManager.GetPackage<NetPackageGameEventResponse>()
                                 .Setup(actionName, cInfo.entityId, string.Empty, string.Empty, NetPackageGameEventResponse.ResponseTypes.Approved));
 
-                            Log("Removed item {0} action {1} from inventory of player id '{2}' '{3}' named '{4}'",
+                            Log("Removed item: {0},action: {1} from inventory of player id '{2}' '{3}' named '{4}'",
                                 itemName, actionName, cInfo.PlatformId.CombinedString, cInfo.CrossplatformId.CombinedString, cInfo.playerName);
                             return;
                         }
