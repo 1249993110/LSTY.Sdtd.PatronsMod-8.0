@@ -12,7 +12,7 @@ namespace LSTY.Sdtd.PatronsMod.Commands
         protected override string getHelp()
         {
             return "Removes items with the specified name from a online player.\n" +
-                "Usage: ty-rpi <EntityId/PlayerId/PlayerName>\n";
+                "Usage: ty-rpi <EntityId/PlayerId/PlayerName> <ItemName>\n";
         }
 
         protected override string[] getCommands()
