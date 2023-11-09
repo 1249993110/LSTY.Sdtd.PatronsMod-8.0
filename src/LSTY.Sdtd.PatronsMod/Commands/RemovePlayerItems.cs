@@ -31,39 +31,33 @@ namespace LSTY.Sdtd.PatronsMod.Commands
                 }
 
                 ClientInfo cInfo = ConsoleHelper.ParseParamIdOrName(args[0]);
-                if (cInfo != null)
+                if (cInfo != null && GameManager.Instance.World.Players.dict.TryGetValue(cInfo.entityId, out EntityPlayer player))
                 {
-                    World world = GameManager.Instance.World;
-                    var playersDict = world.Players.dict;
+                    string itemName = args[1];
 
-                    if (cInfo != null && playersDict.TryGetValue(cInfo.entityId, out EntityPlayer player))
+                    // Remove the name of block shape
+                    int index = itemName.IndexOf(':');
+                    if (index != -1)
                     {
-                        string itemName = args[1];
+                        itemName = itemName.Substring(0, index);
+                    }
 
-                        // Remove the name of the block shape
-                        int index = itemName.IndexOf(':');
-                        if (index != -1)
-                        {
-                            itemName = itemName.Substring(0, index);
-                        }
+                    string actionName = WorldStaticDataHook.ActionPrefix + WorldStaticDataHook.TagPrefix + itemName;
 
-                        string actionName = WorldStaticDataHook.ActionPrefix + WorldStaticDataHook.TagPrefix + itemName;
+                    if (GameEventManager.GameEventSequences.ContainsKey(actionName))
+                    {
+                        GameEventManager.Current.HandleAction(actionName, null, player, false, "");
+                        cInfo.SendPackage(NetPackageManager.GetPackage<NetPackageGameEventResponse>()
+                            .Setup(actionName, cInfo.entityId, string.Empty, string.Empty, NetPackageGameEventResponse.ResponseTypes.Approved));
 
-                        if (GameEventManager.GameEventSequences.ContainsKey(actionName))
-                        {
-                            GameEventManager.Current.HandleAction(actionName, null, player, false, "");
-                            cInfo.SendPackage(NetPackageManager.GetPackage<NetPackageGameEventResponse>()
-                                .Setup(actionName, cInfo.entityId, string.Empty, string.Empty, NetPackageGameEventResponse.ResponseTypes.Approved));
-
-                            Log("Removed item: {0},action: {1} from inventory of player id '{2}' '{3}' named '{4}'",
-                                itemName, actionName, cInfo.PlatformId.CombinedString, cInfo.CrossplatformId.CombinedString, cInfo.playerName);
-                            return;
-                        }
-                        else
-                        {
-                            Log("Unable to locate {0} in the game events list", actionName);
-                            return;
-                        }
+                        Log("Removed item: {0},action: {1} from inventory of player id '{2}' '{3}' named '{4}'",
+                            itemName, actionName, cInfo.PlatformId.CombinedString, cInfo.CrossplatformId.CombinedString, cInfo.playerName);
+                        return;
+                    }
+                    else
+                    {
+                        Log("Unable to locate {0} in the game events list", actionName);
+                        return;
                     }
                 }
                 else
