@@ -1,29 +1,16 @@
-﻿using LSTY.Sdtd.PatronsMod.Extensions;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace LSTY.Sdtd.PatronsMod.Commands
 {
     public class RestartServer : ConsoleCmdBase
     {
-        private bool _isRestarting;
-
-        public RestartServer()
-        {
-            ModEvents.GameShutdown.RegisterHandler(OnGameShutdown);
-        }
-
         protected override string getDescription()
         {
-            return "restart server, optional parameter -f";
+            return "Restart server, optional parameter -f";
         }
 
-        protected override string[] getCommands()
-        {
-            return new[] { "ty-rs", "ty-RestartServer" };
-        }
-
-        public override string GetHelp()
+        protected override string getHelp()
         {
             return "Usage:\n" +
                 "  1. ty-rs" +
@@ -32,25 +19,33 @@ namespace LSTY.Sdtd.PatronsMod.Commands
                 "2. Force restart server";
         }
 
+        protected override string[] getCommands()
+        {
+            return new[] { "ty-rs", "ty-RestartServer" };
+        }
+
         public override void Execute(List<string> args, CommandSenderInfo senderInfo)
         {
             Log("Server is restarting..., please wait");
 
             if (args.Count > 0)
             {
-                if (args[0] == "-f")
+                if (string.Equals(args[0], "-f", StringComparison.OrdinalIgnoreCase))
                 {
                     PrepareRestart(true);
+                    return;
                 }
             }
-            else
-            {
-                Restart();
-            }
+
+            PrepareRestart(false);
         }
+
+        private static volatile bool _isRestarting;
 
         private void PrepareRestart(bool force = false)
         {
+            SdtdConsole.Instance.ExecuteSync("sa", Utils.CmdExecuteDelegate);
+
             _isRestarting = true;
 
             if (force)
@@ -63,7 +58,7 @@ namespace LSTY.Sdtd.PatronsMod.Commands
             }
         }
 
-        private void Restart()
+        private static void Restart()
         {
             string? scriptName = null;
             string? serverPath = null;
@@ -84,7 +79,7 @@ namespace LSTY.Sdtd.PatronsMod.Commands
             Process.Start(path, string.Format("{0} \"{1}\"", Process.GetCurrentProcess().Id, serverPath));
         }
 
-        private void OnGameShutdown()
+        public static void GameShutdown()
         {
             if (_isRestarting)
             {

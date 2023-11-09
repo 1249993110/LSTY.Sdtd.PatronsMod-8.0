@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 using LSTY.Sdtd.PatronsMod.Extensions;
-using LSTY.Sdtd.PatronsMod.Hubs;
+using LSTY.Sdtd.PatronsMod.Hooks;
 
 namespace LSTY.Sdtd.PatronsMod.HarmonyPatchers
 {

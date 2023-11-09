@@ -7,7 +7,7 @@
             return "Send a message to a single player";
         }
 
-        public override string GetHelp()
+        protected override string getHelp()
         {
             return "Usage:\n" +
                    "  1. ty-pm <EntityId/PlayerId/PlayerName> <Message>\n" +
@@ -30,7 +30,7 @@
 
             if (sender == null || sender.PlatformId == null)
             {
-                senderId = Shared.Constants.Common.NonPlayer;
+                senderId = Common.NonPlayer;
             }
             else
             {
@@ -47,7 +47,7 @@
         {
             if (args.Count < 2)
             {
-                Log("Usage: sayplayer <EOS/EntityId/PlayerName> <message>");
+                Log(getHelp());
                 return;
             }
 
@@ -56,11 +56,11 @@
             ClientInfo receiver = ConsoleHelper.ParseParamIdOrName(args[0]);
             if (receiver == null)
             {
-                Log("EOS or entityId or playerName not found.");
+                Log("Unable to locate player '{0}' online", args[0]);
             }
             else
             {
-                string senderName = (args.Count < 3 || string.IsNullOrEmpty(args[2])) ? Shared.Constants.Common.DefaultServerName : args[2];
+                string senderName = (args.Count < 3 || string.IsNullOrEmpty(args[2])) ? Common.DefaultServerName : args[2];
                 SendMessage(receiver, sender, message, senderName);
             }
         }

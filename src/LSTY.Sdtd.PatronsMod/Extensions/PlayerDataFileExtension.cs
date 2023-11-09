@@ -19,7 +19,7 @@ namespace LSTY.Sdtd.PatronsMod.Extensions
             }
             catch (Exception ex)
             {
-                CustomLogger.Warn(ex, "Get player inventory from PlayerDataFile failed");
+                CustomLogger.Warn(ex, "Get player inventory from PlayerDataFile failed.");
                 return null;
             }
         }

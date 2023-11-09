@@ -1,7 +1,7 @@
 ﻿using LSTY.Sdtd.PatronsMod.Extensions;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
-using static XUiC_SpawnEntitiesList;
+using System.Collections.Generic;
 
 namespace LSTY.Sdtd.PatronsMod
 {
@@ -10,6 +10,9 @@ namespace LSTY.Sdtd.PatronsMod
     {
         public async Task<OnlinePlayer?> GetOnlinePlayer(int entityId)
         {
+            if (ModApi.IsGameStartDone == false) 
+                return null;
+
             return await Task.Factory.StartNew((state) =>
             {
                 if (GameManager.Instance.World.Players.dict.TryGetValue((int)state, out var player))
@@ -23,6 +26,9 @@ namespace LSTY.Sdtd.PatronsMod
 
         public async Task<IEnumerable<OnlinePlayer>> GetOnlinePlayers()
         {
+            if (ModApi.IsGameStartDone == false) 
+                return Enumerable.Empty<OnlinePlayer>();
+
             return await Task.Run(() =>
             {
                 var result = new List<OnlinePlayer>();
@@ -41,6 +47,9 @@ namespace LSTY.Sdtd.PatronsMod
 
         public async Task<PlayerBase?> GetPlayerByIdOrName(string idOrName)
         {
+            if (ModApi.IsGameStartDone == false) 
+                return null;
+
             return await Task.Factory.StartNew((state) => ConsoleHelper.ParseParamIdOrName((string)state)?.ToPlayerBase(), idOrName);
         }
 
@@ -51,6 +60,9 @@ namespace LSTY.Sdtd.PatronsMod
 
         public async Task<Shared.Models.Inventory?> GetPlayerInventory(int entityId)
         {
+            if (ModApi.IsGameStartDone == false)
+                return null;
+
             return await Task.Factory.StartNew((state) =>
             {
                 return ConnectionManager.Instance.Clients.ForEntityId((int)state)?.latestPlayerData.GetInventory();
@@ -59,6 +71,9 @@ namespace LSTY.Sdtd.PatronsMod
 
         public async Task<Dictionary<int, Shared.Models.Inventory>> GetPlayersInventory()
         {
+            if (ModApi.IsGameStartDone == false)
+                return new Dictionary<int, Shared.Models.Inventory>();
+
             return await Task.Run(() =>
             {
                 var result = new Dictionary<int, Shared.Models.Inventory>();

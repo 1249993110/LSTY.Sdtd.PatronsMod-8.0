@@ -6,7 +6,7 @@ using Platform.Steam;
 using System.Security.Cryptography;
 using UnityEngine;
 
-namespace LSTY.Sdtd.PatronsMod.Hubs
+namespace LSTY.Sdtd.PatronsMod.Hooks
 {
     internal static class ModEventHook
     {
@@ -161,7 +161,7 @@ namespace LSTY.Sdtd.PatronsMod.Hubs
         /// <param name="message"></param>
         /// <param name="trace"></param>
         /// <param name="type"></param>
-        public static void LogCallback(string message, string trace, UnityEngine.LogType type)
+        public static void LogCallback(string message, string trace, LogType type)
         {
             var logEntry = new LogEntry()
             {

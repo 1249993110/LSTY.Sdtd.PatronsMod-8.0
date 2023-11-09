@@ -1,4 +1,4 @@
-﻿using LSTY.Sdtd.PatronsMod.Hubs;
+﻿using LSTY.Sdtd.PatronsMod.Hooks;
 using LSTY.Sdtd.Shared.Hubs;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;

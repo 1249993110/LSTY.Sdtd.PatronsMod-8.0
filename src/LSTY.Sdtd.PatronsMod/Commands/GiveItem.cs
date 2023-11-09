@@ -4,12 +4,12 @@ namespace LSTY.Sdtd.PatronsMod.Commands
 {
     public class GiveItem : ConsoleCmdBase
     {
-        public override string GetDescription()
+        protected override string getDescription()
         {
             return "Gives a item directly to a player's inventory. Drops to the ground if inventory is full.";
         }
 
-        protected override string getDescription()
+        protected override string getHelp()
         {
             return "Usage:\n" +
                 "  1. ty-gi <EntityId/PlayerId/PlayerName> <ItemName> <Count> <Quality> <Durability>\n" +
@@ -167,6 +167,5 @@ namespace LSTY.Sdtd.PatronsMod.Commands
                 CustomLogger.Error(ex, "Error in giveitem console command executing");
             }
         }
-
     }
 }

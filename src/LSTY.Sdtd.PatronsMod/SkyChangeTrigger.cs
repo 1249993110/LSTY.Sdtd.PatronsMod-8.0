@@ -1,4 +1,4 @@
-﻿using LSTY.Sdtd.PatronsMod.Hubs;
+﻿using LSTY.Sdtd.PatronsMod.Hooks;
 
 namespace LSTY.Sdtd.PatronsMod
 {
