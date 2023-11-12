@@ -4,7 +4,7 @@
     {
         protected override string getDescription()
         {
-            return "Send a message to a single player";
+            return "Send a message to a single player.";
         }
 
         protected override string getHelp()

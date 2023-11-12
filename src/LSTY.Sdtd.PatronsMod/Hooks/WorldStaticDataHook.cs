@@ -146,7 +146,7 @@ namespace LSTY.Sdtd.PatronsMod.Hooks
 
             foreach (var tag in addedTags)
             {
-                string actionSequenceName = "action_" + tag;
+                string actionSequenceName = ActionPrefix + tag;
                 var gameEventActionSequence = new GameEventActionSequence();
 
                 var actionSequenceEl = xmlDocument.CreateElement("action_sequence");

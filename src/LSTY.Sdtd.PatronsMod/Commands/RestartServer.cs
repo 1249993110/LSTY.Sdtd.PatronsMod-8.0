@@ -7,7 +7,7 @@ namespace LSTY.Sdtd.PatronsMod.Commands
     {
         protected override string getDescription()
         {
-            return "Restart server, optional parameter -f";
+            return "Restart server, optional parameter -f/force.";
         }
 
         protected override string getHelp()
@@ -30,7 +30,8 @@ namespace LSTY.Sdtd.PatronsMod.Commands
 
             if (args.Count > 0)
             {
-                if (string.Equals(args[0], "-f", StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(args[0], "-f", StringComparison.OrdinalIgnoreCase) 
+                    || string.Equals(args[0], "-force", StringComparison.OrdinalIgnoreCase))
                 {
                     PrepareRestart(true);
                     return;
