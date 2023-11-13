@@ -210,5 +210,18 @@ namespace LSTY.Sdtd.Shared.Hubs
         /// </summary>
         /// <returns></returns>
         Task<bool> IsBloodMoon();
+
+        /// <summary>
+        /// 获取地图信息
+        /// </summary>
+        /// <returns></returns>
+        Task<MapInfo> GetMapInfo();
+
+        /// <summary>
+        /// 获取地图切片
+        /// </summary>
+        /// <param name="zoomLevel">格式如: /z/x/y.png</param>
+        /// <returns></returns>
+        Task<byte[]?> GetMapTile(string zoomLevel);
     }
 }

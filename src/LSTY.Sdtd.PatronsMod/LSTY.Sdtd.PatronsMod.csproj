@@ -88,5 +88,13 @@
 			<Private>false</Private>
 			<HintPath>..\7dtd-binaries\Noemax.GZip.dll</HintPath>
 		</Reference>
+		<Reference Include="MapRendering">
+			<Private>false</Private>
+			<HintPath>..\7dtd-binaries\MapRendering.dll</HintPath>
+		</Reference>
+		<Reference Include="WebServer">
+			<Private>false</Private>
+			<HintPath>..\7dtd-binaries\WebServer.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 </Project>

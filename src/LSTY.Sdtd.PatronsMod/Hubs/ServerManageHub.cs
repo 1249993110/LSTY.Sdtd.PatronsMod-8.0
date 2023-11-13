@@ -1,4 +1,5 @@
 ﻿using LSTY.Sdtd.PatronsMod.Extensions;
+using MapRendering;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using Newtonsoft.Json;
@@ -200,7 +201,7 @@ namespace LSTY.Sdtd.PatronsMod
             return await Task.Run(() =>
             {
                 int claimsize = GamePrefs.GetInt(EnumGamePrefs.LandClaimSize);
-                var claimOwners = new Dictionary<int, ClaimOwner>();
+                var claimOwners = new Dictionary<string, ClaimOwner>();
 
                 var persistentPlayerList = GameManager.Instance.GetPersistentPlayerList();
                 if (persistentPlayerList == null)
@@ -217,15 +218,15 @@ namespace LSTY.Sdtd.PatronsMod
                 foreach (var item in lpBlockMap)
                 {
                     var persistentPlayerData = item.Value;
-                    int entityId = persistentPlayerData.EntityId;
-                    if (claimOwners.ContainsKey(entityId))
+                    string playerId = persistentPlayerData.UserIdentifier.CombinedString;
+                    if (claimOwners.ContainsKey(playerId))
                     {
-                        ((List<Position>)claimOwners[entityId].ClaimPositions).Add(item.Key.ToPosition());
+                        ((List<Position>)claimOwners[playerId].ClaimPositions).Add(item.Key.ToPosition());
                     }
                     else
                     {
                         bool claimActive = GameManager.Instance.World.IsLandProtectionValidForPlayer(persistentPlayerList.GetPlayerData(persistentPlayerData.UserIdentifier));
-                        claimOwners.Add(entityId, new ClaimOwner()
+                        claimOwners.Add(playerId, new ClaimOwner()
                         {
                             ClaimActive = claimActive,
                             PlatformId = persistentPlayerData.UserIdentifier.CombinedString,
@@ -493,11 +494,49 @@ namespace LSTY.Sdtd.PatronsMod
             return await ExecuteConsoleCommandBatch(playerId, obj => $"ban remove {obj}");
         }
 
+        #endregion Blacklist
+
         public Task<bool> IsBloodMoon()
         {
             return Task.FromResult(GameManager.Instance.World.aiDirector.BloodMoonComponent.BloodMoonActive);
         }
 
-        #endregion Blacklist
+        public async Task<MapInfo> GetMapInfo()
+        {
+            MapInfo? mapInfo;
+            if (ModApi.IsGameStartDone == false)
+            {
+                string fileName = Path.Combine(MapRendering.Constants.MapDirectory, "mapinfo.json");
+                if (File.Exists(fileName))
+                {
+                    string json = File.ReadAllText(fileName, Encoding.UTF8);
+                    mapInfo = JsonConvert.DeserializeObject<MapInfo>(json);
+
+                    if(mapInfo != null)
+                    {
+                        return mapInfo;
+                    }
+                }
+
+                return new MapInfo() { BlockSize = 128, MaxZoom = 4 };
+            }
+
+            mapInfo = new MapInfo() { BlockSize = MapRendering.Constants.MapBlockSize, MaxZoom = MapRendering.Constants.Zoomlevels - 1 };
+            return await Task.FromResult(mapInfo);
+        }
+
+        public async Task<byte[]?> GetMapTile(string zoomLevel)
+        {
+            if (ModApi.IsGameStartDone == false)
+            {
+                return null;
+            }
+
+            return await Task.Factory.StartNew((state) =>
+            {
+                string fileName = MapRendering.Constants.MapDirectory + (string)state;
+                return ((MapTileCache)MapRenderer.GetTileCache()).GetFileContent(fileName);
+            }, zoomLevel);
+        }
     }
 }
