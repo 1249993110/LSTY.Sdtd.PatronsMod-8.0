@@ -73,22 +73,21 @@ namespace LSTY.Sdtd.PatronsMod.Commands
                         }
                     }
 
-                    int min = 1;
-                    int max = 1;
-                    int itemQuality;
-                    if (argCount > 3 && int.TryParse(args[3], out itemQuality))
-                    {
-                        if (itemQuality > 0 && itemQuality <= Constants.cItemMaxQuality)
-                        {
-                            min = itemQuality;
-                            max = itemQuality;
-                        }
-                    }
-
-                    ItemValue itemValue = new ItemValue(ItemClass.GetItem(arg1).type, min, max, true, null);
+                    ItemValue itemValue = new ItemValue(ItemClass.GetItem(arg1).type);
                     if (itemValue != null)
                     {
-                        if (argCount > 4 && float.TryParse(args[4], out float durability))
+                        if (itemValue.HasQuality)
+                        {
+                            itemValue.Quality = 1;
+                            if (args.Count > 3 && int.TryParse(args[3], out int itemQuality))
+                            {
+                                if (itemQuality > 0)
+                                {
+                                    itemValue.Quality = itemQuality;
+                                }
+                            }
+                        }
+                        if (args.Count > 4 && float.TryParse(args[4], out float durability))
                         {
                             if (durability > 0 && durability < 101)
                             {

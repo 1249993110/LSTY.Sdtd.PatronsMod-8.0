@@ -158,7 +158,7 @@ namespace LSTY.Sdtd.PatronsMod.Hooks
 
                     var propertyEl = xmlDocument.CreateElement("property");
                     propertyEl.SetAttribute("name", "items_location");
-                    propertyEl.SetAttribute("value", "Toolbelt,Equipment,Backpack");
+                    propertyEl.SetAttribute("value", "Toolbelt,Backpack");//,Equipment
                     actionEl.AppendChild(propertyEl);
 
                     propertyEl = xmlDocument.CreateElement("property");

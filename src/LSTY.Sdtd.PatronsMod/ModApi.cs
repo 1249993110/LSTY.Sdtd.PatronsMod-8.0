@@ -3,6 +3,7 @@ using IceCoffee.Common.Timers;
 using LSTY.Sdtd.PatronsMod.Commands;
 using LSTY.Sdtd.PatronsMod.Hooks;
 using LSTY.Sdtd.PatronsMod.SignalR;
+using MapRendering;
 using Microsoft.Owin.Hosting;
 using System.Text;
 
@@ -24,6 +25,7 @@ namespace LSTY.Sdtd.PatronsMod
         public static string ModDirectory => _modInstance.Path;
 
         public static bool IsGameStartDone { get; private set; }
+        public static MapTileCache MapTileCache { get; private set; }
 
         public void InitMod(Mod modInstance)
         {
@@ -102,6 +104,7 @@ namespace LSTY.Sdtd.PatronsMod
                 ModEvents.GameStartDone.RegisterHandler(()=> 
                 {
                     WorldStaticDataHook.ReplaceXmlsToImplRemovePlayerItems();
+                    MapTileCache = (MapTileCache)MapRenderer.GetTileCache();
                     ModEventHook.GameStartDone();
                     IsGameStartDone = true;
                 });

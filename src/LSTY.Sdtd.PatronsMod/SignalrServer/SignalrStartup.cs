@@ -17,7 +17,7 @@ namespace LSTY.Sdtd.PatronsMod.SignalR
 #endif
                 EnableJavaScriptProxies = false
             });
-
+            
             GlobalHost.HubPipeline.AddModule(new GlobalExceptionModule());
 
             if (string.IsNullOrEmpty(ModApi.AppSettings.AccessToken) == false)

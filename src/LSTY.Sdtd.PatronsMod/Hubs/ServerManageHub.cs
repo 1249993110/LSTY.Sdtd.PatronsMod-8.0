@@ -535,7 +535,7 @@ namespace LSTY.Sdtd.PatronsMod
             return await Task.Factory.StartNew((state) =>
             {
                 string fileName = MapRendering.Constants.MapDirectory + (string)state;
-                return ((MapTileCache)MapRenderer.GetTileCache()).GetFileContent(fileName);
+                return ModApi.MapTileCache.GetFileContent(fileName);
             }, zoomLevel);
         }
     }
