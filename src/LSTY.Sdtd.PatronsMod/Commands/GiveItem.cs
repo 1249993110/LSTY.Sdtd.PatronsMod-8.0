@@ -101,12 +101,12 @@ namespace LSTY.Sdtd.PatronsMod.Commands
                             foreach (var cInfo in ConnectionManager.Instance.Clients.List)
                             {
                                 if (playersDict.TryGetValue(cInfo.entityId, out EntityPlayer player)
-                                    && player.IsSpawned())
+                                    && player.IsSpawned() && !player.IsDead())
                                 {
                                     var entityItem = (EntityItem)EntityFactory.CreateEntity(new EntityCreationData()
                                     {
                                         entityClass = EntityClass.FromString("item"),
-                                        id = ++EntityFactory.nextEntityID,
+                                        id = EntityFactory.nextEntityID++,
                                         itemStack = new ItemStack(itemValue, itemCount),
                                         pos = player.position,
                                         rot = new Vector3(20f, 0f, 20f),
@@ -129,12 +129,12 @@ namespace LSTY.Sdtd.PatronsMod.Commands
                         {
                             ClientInfo cInfo = ConsoleHelper.ParseParamIdOrName(arg0);
                             if (cInfo != null && playersDict.TryGetValue(cInfo.entityId, out EntityPlayer player)
-                                && player.IsSpawned())
+                                && player.IsSpawned() && !player.IsDead())
                             {
                                 var entityItem = (EntityItem)EntityFactory.CreateEntity(new EntityCreationData()
                                 {
                                     entityClass = EntityClass.FromString("item"),
-                                    id = ++EntityFactory.nextEntityID,
+                                    id = EntityFactory.nextEntityID++,
                                     itemStack = new ItemStack(itemValue, itemCount),
                                     pos = player.position,
                                     rot = new Vector3(20F, 0F, 20F),
