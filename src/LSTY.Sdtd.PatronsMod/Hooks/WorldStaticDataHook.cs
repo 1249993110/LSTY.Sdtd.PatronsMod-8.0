@@ -87,10 +87,33 @@ namespace LSTY.Sdtd.PatronsMod.Hooks
             return compressedMemoryStream.ToArray();
         }
 
+        private static string[]? GetParentNodeTags(XmlNode currentNode, XmlNode rootNode, string xpathName)
+        {
+            var extendsNode = currentNode.SelectSingleNode("property[@name='Extends']") as XmlElement;
+            if (extendsNode == null)
+            {
+                return null;
+            }
+
+            string extendsName = extendsNode.GetAttribute("value");
+            var parentNode = rootNode.SelectSingleNode($"{xpathName}[@name='{extendsName}']");
+            var parentTagsNode = parentNode.SelectSingleNode("property[@name='Tags']") as XmlElement;
+            if (parentTagsNode != null)
+            {
+                return parentTagsNode.GetAttribute("value").Split(',');
+            }
+            else
+            {
+                return GetParentNodeTags(parentNode, rootNode, xpathName);
+            }
+        }
+
         private static byte[] AttachTags(string xmlName, byte[] compressedXmlData, HashSet<string> addedTags)
         {
+            string xmlNameWithoutS = xmlName.Substring(0, xmlName.Length - 1);
             var xmlDocument = Decompresse(compressedXmlData);
-            var xmlNodeList = xmlDocument.SelectSingleNode(xmlName).ChildNodes;
+            var rootNode = xmlDocument.SelectSingleNode(xmlName);
+            var xmlNodeList = rootNode.ChildNodes;
 
             foreach (XmlNode item in xmlNodeList)
             {
@@ -98,23 +121,36 @@ namespace LSTY.Sdtd.PatronsMod.Hooks
                 string itemName = xmlElement.GetAttribute("name");
                 string tag = TagPrefix + itemName;
 
-                var currentNode = item.SelectSingleNode("property[@name='Tags']") as XmlElement;
-                if (currentNode == null)
+                var tagsNode = item.SelectSingleNode("property[@name='Tags']") as XmlElement;
+                if (tagsNode == null)
                 {
                     var newElement = xmlDocument.CreateElement("property");
                     newElement.SetAttribute("name", "Tags");
-                    newElement.SetAttribute("value", tag);
+
+                    string[]? parentTags = GetParentNodeTags(item, rootNode, xmlNameWithoutS);
+                    if (parentTags != null)
+                    {
+                        var _tags = parentTags.ToList();
+                        _tags.Add(tag);
+                        string newTags = string.Join(",", _tags);
+                        newElement.SetAttribute("value", newTags);
+                    }
+                    else
+                    {
+                        newElement.SetAttribute("value", tag);
+                    }
+
                     item.AppendChild(newElement);
                 }
                 else
                 {
-                    string[] tags = currentNode.GetAttribute("value").Split(',');
+                    string[] tags = tagsNode.GetAttribute("value").Split(',');
                     if (tags.Contains(tag) == false)
                     {
                         var _tags = tags.ToList();
                         _tags.Add(tag);
                         string newTags = string.Join(",", _tags);
-                        currentNode.SetAttribute("value", newTags);
+                        tagsNode.SetAttribute("value", newTags);
                     }
                 }
 
